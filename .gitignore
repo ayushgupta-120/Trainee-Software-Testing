@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+automation/node_modules/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+service-account*.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE and Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build and Cache
+coverage/
+dist/
+build/
+.cache/
+.tmp/
+temp/
+
+# Playwright generated test run artifacts & HTML reports
+automation/playwright-report/
+automation/test-results/
+playwright-report/
+
+# Ensure manual QA evidence and reports remain tracked
+!test-results/test-execution-report.md
+!screenshots/
+!test-cases/
+!bug-reports/

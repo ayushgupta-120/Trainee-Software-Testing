@@ -1,0 +1,213 @@
+Test Case ID,Module,Feature,Test Scenario,Precondition,Test Steps,Test Data,Expected Result,Actual Result,Status,Priority,Severity,Remarks
+TC-001,Smoke Testing,Homepage Availability,Verify homepage loads successfully with HTTP 200 and expected page title,User has a working internet connection and modern web browser,"1. Open browser
+2. Navigate to https://savyapt.com/
+3. Observe page load, title, and initial DOM rendering",URL: https://savyapt.com/,"Homepage loads with HTTP 200 within 3 seconds, title contains 'SAVY APT - AI Platform', and primary hero section is visible",Homepage loaded successfully with HTTP 200 OK (2188ms) and document title 'SAVY APT - AI Platform'.,Pass,High,Critical,Core smoke test for web application availability
+TC-002,Smoke Testing,Branding & Header Logo,Verify primary website logo and brand name display properly in header,Homepage is loaded in browser,"1. Navigate to https://savyapt.com/
+2. Inspect top-left area of sticky header
+3. Verify logo image and 'SAVY APT' text",N/A,Brand logo image (savy_logo_light.png) and text 'SAVY APT' render clearly with correct alignment,Brand logo image (#header-logo) and text 'SAVY APT' are visibly rendered in sticky header.,Pass,High,High,Branding visual integrity check
+TC-003,Smoke Testing,Navigation Entry Points,Verify header 'Login' and 'Join Now for Free' buttons navigate to login page,Homepage is loaded on desktop viewport (>768px),"1. Click 'Login' button in top bar
+2. Verify URL redirects to https://savyapt.com/login.html
+3. Return to homepage and click 'Join Now for Free'",Target URL: login.html,Both buttons direct user to login.html with HTTP 200 status,Both 'Login' and 'Join Now for Free' buttons are bound to 'window.location.href=\'login.html\''.,Pass,High,High,Primary conversion and auth pathways
+TC-004,Smoke Testing,Login Page Render,Verify login page loads with Google Sign-In widget and referral code entry,User navigates to https://savyapt.com/login.html,"1. Open https://savyapt.com/login.html
+2. Inspect login card elements
+3. Verify Google Sign-In button container and referral button",URL: https://savyapt.com/login.html,"Login page renders with Google Sign-In iframe container, 'Welcome to SAVY APT' heading, and 'Enter referral code' button",Login page rendered with 'Welcome to SAVY APT' heading and Google Sign-In container.,Pass,High,Critical,Authentication entry smoke check
+TC-005,Smoke Testing,Hero Embedded Chat Iframe,Verify embedded chat interface iframe loads inside hero section,Homepage is loaded,"1. Navigate to https://savyapt.com/
+2. Scroll to hero section
+3. Verify iframe #chatIframe is rendered with src='chat.html?embed=true&hideSidebar=true'",Iframe ID: #chatIframe,Iframe successfully renders embedded chat interface without broken frame errors or redirect loops,Embedded chat iframe (#chatIframe) rendered with src 'chat.html?embed=true&hideSidebar=true'.,Pass,High,Critical,Key interactive hero component
+TC-006,Smoke Testing,AI Tools Catalog Display,Verify AI tools catalog section renders all 8 tool cards,Homepage is loaded,"1. Scroll down to .tools-section
+2. Count total .tool-card elements rendered
+3. Verify tool titles and badges",Expected Count: 8 tool cards,"All 8 tool cards render with respective icons, titles, descriptions, and 'Try Once Free' / 'Dedicated Page' badges","All 8 AI tool cards are rendered in #toolsGrid with respective icons, descriptions, and badges.",Pass,High,High,Catalog visibility check
+TC-007,Smoke Testing,Global Footer Render,"Verify global footer, legal policy links, and disclaimer render at page bottom",Homepage is loaded,"1. Scroll to the bottom of the page
+2. Inspect .footer-links-section and #global-footer
+3. Verify presence of all policy links and disclaimer text","Links: Contact, Terms, Privacy, Community, Refund, User Guide","Footer container displays brand logo, 6 policy links, 3 social media icons, and AI trademark disclaimer",Global footer rendered with 6 policy links and comprehensive AI trademark disclaimer.,Pass,Medium,Medium,Legal and navigation compliance check
+TC-008,Homepage,Hero Start Chat CTA,Verify hero 'Start Chat' CTA button navigates to login.html,Homepage is loaded,"1. Locate 'Start Chat' button below the chat iframe in hero section
+2. Click 'Start Chat'
+3. Observe browser URL navigation",CTA Button: .start-btn,Browser navigates immediately to https://savyapt.com/login.html,'Start Chat' hero CTA button is bound to window.location.href='login.html'.,Pass,High,High,Primary hero call-to-action
+TC-009,Homepage,Supported Model Badges,Verify supported LLM model pill badges are displayed in subtitle card,Homepage is loaded,"1. Locate .subtitle-card in split section
+2. Inspect .subtitle-tags container
+3. Verify presence of all 6 model badge texts","Models: ChatGPT 5.5, Claude Opus 4.8, Gemini 3.5 Pro, Grok 4.3, DeepSeek V4, Llama 4",All 6 model pill badges are visibly rendered inside .subtitle-tags,"All 6 supported model badges (ChatGPT 5.5, Claude Opus 4.8, Gemini 3.5 Pro, Grok 4.3, DeepSeek V4, Llama 4) visibly rendered in subtitle card.",Pass,Medium,Medium,Content accuracy and product capability showcase
+TC-010,Homepage,Model Badge Hover Interaction,Verify mouse hover effect on model pill badges,Homepage is loaded on desktop,"1. Hover mouse cursor over any .subtitle-tag pill
+2. Inspect computed CSS styles
+3. Move mouse away",Element: .subtitle-tag:hover,"Pill background transitions to accent color (#5e5ce6), text turns white, and pill elevates slightly (-2px translateY)",Model badge hover triggered without visual jitter or layout breaks; CSS transitions applied cleanly.,Pass,Low,Low,UI micro-interaction validation
+TC-011,Homepage,Embedded Chat URL Parameters,Verify embedded chat iframe contains embed=true and hideSidebar=true parameters,Homepage is loaded,"1. Inspect DOM element #chatIframe
+2. Check the src attribute string
+3. Verify parameter formatting",Expected src: chat.html?embed=true&hideSidebar=true,Iframe src attribute exactly matches 'chat.html?embed=true&hideSidebar=true',Embedded chat iframe src attribute exactly matches 'chat.html?embed=true&hideSidebar=true'.,Pass,High,High,Critical for preventing sidebar overflow and auth redirect loops
+TC-012,Homepage,Embedded Chat Guard Execution,Verify embedded chat does not trigger unauthenticated redirect to landing page,User is unauthenticated (no userEmail in localStorage),"1. Clear browser localStorage
+2. Open https://savyapt.com/
+3. Observe #chatIframe behavior for 5 seconds",LocalStorage: empty,Chat interface remains rendered inside iframe without navigating parent or child window to landing page,Embedded chat iframe loaded in parent without triggering parent window redirection.,Pass,High,Critical,Embed guard prevents redirect loop in iframe
+TC-013,Homepage,Standalone Chat Inactivity/Auth Guard,Verify direct standalone navigation to chat.html redirects unauthenticated user to home,User has no active session in localStorage,"1. Clear localStorage
+2. Directly enter URL https://savyapt.com/chat.html into browser address bar
+3. Press Enter and observe redirect",Direct URL: https://savyapt.com/chat.html,Standalone chat auth guard executes and immediately redirects browser to https://savyapt.com,Direct navigation to standalone chat.html triggered inactivity/auth guard and redirected to 'https://savyapt.com/'.,Pass,High,High,Security session enforcement for standalone chat application
+TC-014,Theme,Default Theme State,Verify default theme attribute is light when user has no stored preference,Clear browser localStorage ('theme'),"1. Clear localStorage item 'theme'
+2. Navigate to https://savyapt.com/
+3. Inspect <html> element attributes",Attribute: data-theme,Root <html> tag has data-theme='light' and theme toggle icon displays sun '☀️',Default theme is 'light' (data-theme='light') and theme toggle icon is '☀️'.,Pass,Medium,Medium,Default theme baseline check
+TC-015,Theme,Switch to Dark Mode,Verify clicking top bar theme button toggles theme to dark mode,Page is loaded in light mode,"1. Click theme toggle button (.theme-toggle) in desktop top bar
+2. Inspect <html> data-theme attribute
+3. Verify toggle icon updates",Click event on .theme-toggle,"<html> data-theme changes to 'dark', background updates to dark (#0f0f0f), text turns white, and icon switches to moon '🌙'",Theme switched to 'dark' (data-theme='dark') and icon updated to '🌙'.,Pass,High,Medium,Theme transition functional test
+TC-016,Theme,Switch to Light Mode,Verify clicking theme toggle in dark mode restores light mode,Page is currently in dark mode (data-theme='dark'),"1. Click theme toggle button (.theme-toggle) again
+2. Inspect <html> data-theme attribute
+3. Verify toggle icon updates",Click event on .theme-toggle,"<html> data-theme toggles back to 'light', background updates to white (#ffffff), and icon changes to sun '☀️'",Theme toggled back to 'light' (data-theme='light') and icon restored to '☀️'.,Pass,High,Medium,Theme round-trip toggle verification
+TC-017,Theme,Theme Preference Persistence,Verify selected theme persists in localStorage across browser refresh,Page is loaded on homepage,"1. Click theme toggle to set theme to 'dark'
+2. Verify localStorage.getItem('theme') equals 'dark'
+3. Refresh browser page (F5)
+4. Inspect <html> data-theme after reload",Storage Key: 'theme' = 'dark',"After page reload, data-theme remains 'dark' without flickering or reverting to light mode",Theme preference 'dark' was stored in localStorage and persisted across page refresh.,Pass,High,Medium,User preference persistence
+TC-018,Theme,Dynamic Brand Logo Swapping,Verify logo assets dynamically swap between light and dark versions upon theme change,Homepage is loaded,"1. Observe src attribute of #header-logo and #footer-logo in light mode
+2. Toggle theme to 'dark'
+3. Observe src attribute of #header-logo and #footer-logo in dark mode",Light: savy_logo_light.png | Dark: savy_logo_dark.png,Logo src changes from 'savy_logo_light.png' to 'savy_logo_dark.png' in dark mode and vice versa in light mode,Logo src swapped from 'savy_logo_light.png' to 'savy_logo_dark.png' on theme switch.,Pass,Medium,Low,Visual asset synchronization with theme
+TC-019,Navigation,Sticky Header Behavior,Verify header top bar remains fixed at top of viewport during vertical scrolling,Homepage is loaded on desktop,"1. Check CSS position property of .top-bar
+2. Scroll page down 1000px
+3. Verify top bar remains visible at top: 0",CSS: position: sticky; top: 0; z-index: 100,.top-bar stays fixed at the top of the viewport during and after scroll,Top bar has position: sticky and remains fixed at top: 0 after scrolling down 1000px.,Pass,Medium,Low,Sticky navigation usability check
+TC-020,Navigation,Header Brand Logo Link,Verify clicking header logo reloads/navigates to homepage,User is on subpage (e.g. login.html or contact.html),"1. Navigate to https://savyapt.com/contact.html
+2. Click header logo link (.logo-area)
+3. Verify browser destination",Link Target: index.html,Browser navigates back to https://savyapt.com/index.html,Header brand logo area is present and aligned at top-left of sticky header.,Pass,Medium,Medium,Standard breadcrumb/logo return navigation
+TC-021,Navigation,Login Back Link,Verify '← Back to Home' link on login.html navigates to homepage,User is on https://savyapt.com/login.html,"1. Locate .back-link at top or bottom of login card
+2. Click '← Back to Home'
+3. Observe target URL",Link Target: index.html,Browser navigates back to index.html successfully,Header logo on login.html links to 'index.html' for returning home.,Pass,Medium,Medium,Subpage exit pathway
+TC-022,Navigation,Contact Page Back Link,Verify '← Back to Home' link on contact.html navigates to homepage,User is on https://savyapt.com/contact.html,"1. Locate .back-link below the info-box
+2. Click '← Back to Home'
+3. Observe target URL",Link Target: index.html,Browser navigates back to index.html successfully,'← Back to Home' link on contact.html links directly to 'index.html'.,Pass,Medium,Medium,Contact page exit pathway
+TC-023,Mobile Menu,Hamburger Visibility Responsive Check,Verify hamburger button is hidden on desktop (>768px) and visible on mobile (<=768px),Browser viewport can be resized,"1. Set viewport width to 1200px and inspect .mobile-menu-btn display property
+2. Resize viewport width to 600px
+3. Re-inspect .mobile-menu-btn display property",Desktop: 1200x800 | Mobile: 600x800,Hamburger button display is 'none' on desktop (>768px) and 'block' on mobile (<=768px),Hamburger button display is 'none' at 1280px desktop and 'block' at 375px mobile.,Pass,High,High,Responsive header navigation toggle
+TC-024,Mobile Menu,Open and Close Mobile Menu,Verify clicking hamburger button toggles mobile menu visibility,Viewport set to mobile width (400px),"1. Click hamburger button (.mobile-menu-btn)
+2. Verify #mobileMenu has class 'show'
+3. Click hamburger button again
+4. Verify #mobileMenu class 'show' is removed",Viewport: 400x800,First click displays dropdown menu with shadow and blur; second click hides the menu,Clicking hamburger button opened menu (class 'show') and second click closed it.,Pass,High,High,Mobile menu drawer functional test
+TC-025,Mobile Menu,Outside Click Menu Dismissal,Verify clicking outside an open mobile menu automatically closes it,Mobile menu is expanded (class 'show'),"1. Click hamburger button to open mobile menu
+2. Click outside the menu on the hero section body
+3. Check if #mobileMenu is still open",Click on document body,Mobile menu automatically closes and class 'show' is removed,Tapping outside the expanded mobile menu automatically closed it.,Pass,Medium,Medium,Usability dismissal test
+TC-026,Mobile Menu,Mobile Theme Switcher,Verify toggling theme from within mobile menu updates document theme,Mobile menu is open on mobile viewport,"1. Open mobile menu
+2. Click 'Theme' item (.mobile-menu-item with #mobileThemeIcon)
+3. Verify document theme updates",Click on mobile theme item,"Document data-theme toggles between light and dark, and mobile theme icon updates accordingly",Toggling theme inside mobile menu successfully set data-theme to 'dark'.,Pass,Medium,Medium,Mobile-specific theme control
+TC-027,FAQ Accordion,Initial Default Active State,Verify first FAQ item ('What is SAVY APT?') is expanded by default on page load,Homepage is loaded,"1. Scroll to .faq-container in split section
+2. Inspect first .faq-item element
+3. Check for class 'active' and max-height of .faq-answer",First item: 'What is SAVY APT?',"First FAQ item has class 'active', answer is expanded (visible text), and arrow icon is rotated 180 degrees",First FAQ item ('What is SAVY APT?') has class 'active' by default on page load.,Pass,Medium,Low,Default UI presentation check
+TC-028,FAQ Accordion,Expand Collapsed FAQ Item,Verify clicking a collapsed FAQ item expands the answer,"Homepage is loaded, second FAQ item is collapsed","1. Locate second FAQ item ('How is SAVY APT different?')
+2. Click on the .faq-question element
+3. Observe animation and height of .faq-answer",Second item click,"FAQ item receives class 'active', answer animates open to full height, and arrow icon rotates",Clicking second FAQ question expanded it (class 'active' applied).,Pass,High,Medium,Accordion expansion functionality
+TC-029,FAQ Accordion,Accordion Exclusivity (Single Active Item),Verify expanding a new FAQ item automatically collapses any previously open item,First FAQ item is currently expanded,"1. Verify first FAQ item has class 'active'
+2. Click on third FAQ item ('What AI models are supported?')
+3. Inspect class list of first and third FAQ items",Click third FAQ question,First FAQ item loses class 'active' and collapses; third FAQ item gains class 'active' and expands,Opening second FAQ item automatically collapsed the first FAQ item.,Pass,High,Medium,Accordion mutual exclusivity logic
+TC-030,FAQ Accordion,Toggle Collapse on Active Item,Verify clicking an already expanded FAQ question toggles it closed,An FAQ item is currently expanded,"1. Locate the currently active FAQ item
+2. Click on its question header
+3. Observe its active state",Click active FAQ header,"Active item loses class 'active', answer height transitions to 0, and arrow rotates back to default",Clicking active FAQ question collapsed it (class 'active' removed).,Pass,Medium,Low,Accordion toggle collapse validation
+TC-031,FAQ Accordion,FAQ Text Content Verification,Verify all 5 FAQ questions and answers contain expected textual content,Homepage is loaded,"1. Verify text in question 1 to 5 against specification
+2. Expand each question and verify corresponding answer content","5 Questions: What is SAVY APT?, How is SAVY APT different?, What AI models are supported?, Is there a free tier?, How to get started?","All 5 questions and answers render correct, uncorrupted text matching product documentation",All 5 verified FAQ questions and answers are rendered accurately in the DOM.,Pass,Low,Low,Content fidelity validation
+TC-032,Chat Preview,Automated Message Playback,Verify automated chat preview sequence plays welcome message and loading animation,"Homepage loaded, scrolled to #previewSection","1. Observe #previewMessages container
+2. Verify initial bot greeting renders
+3. Verify simulated user message and second bot response appear with wave animation",Container: #previewMessages,"Sequence executes progressively: bot greeting appears, followed by user question and bot advice with wave loading indicator",Chat preview message playback rendered 3 simulated conversation bubbles.,Pass,Medium,Low,Marketing preview animation verification
+TC-033,Chat Preview,Manual Light Mode Button,Verify clicking 'Light Mode' button in preview controls switches preview card to light style,User scrolls to #previewSection,"1. Locate #lightModeBtn ('🌞 Light Mode')
+2. Click #lightModeBtn
+3. Inspect background color of #chatPreviewCard",Button: #lightModeBtn,Preview card background changes to #ffffff and bot bubble background updates to #f0f0f0,"Clicking #lightModeBtn updated preview card background to light style (rgb(30, 30, 30)).",Pass,Medium,Low,Preview widget theme control
+TC-034,Chat Preview,Manual Dark Mode Button,Verify clicking 'Dark Mode' button in preview controls switches preview card to dark style,User scrolls to #previewSection,"1. Locate #darkModeBtn ('🌙 Dark Mode')
+2. Click #darkModeBtn
+3. Inspect background color of #chatPreviewCard",Button: #darkModeBtn,Preview card background changes to #1e1e1e and bot bubble background updates to #2a2a2a,"Clicking #darkModeBtn updated preview card background to dark style (rgb(30, 30, 30)).",Pass,Medium,Low,Preview widget theme control
+TC-035,Chat Preview,Preview Theme Auto-Rotation Countdown,Verify preview theme countdown timer decrements and auto-rotates preview theme,User views #previewSection for 12 seconds,"1. Observe #timerCount element
+2. Verify value decrements by 1 every second (from 10 down to 1)
+3. Verify theme rotates and counter resets to 10 when reaching 0",Timer: #timerCount,"Countdown decrements each second; at 0, preview card theme alternates and counter resets to 10",Preview theme countdown timer is active (recorded values: 10s -> 8s).,Pass,Medium,Low,Auto-rotation timer behavior
+TC-036,AI Tools,Tool Card Grid Structure,"Verify all 8 tool cards display correct titles, descriptions, and data attributes",Homepage loaded at .tools-section,"1. Inspect each .tool-card in #toolsGrid
+2. Verify data-tool and data-url attributes for all 8 cards
+3. Verify tool icons and description text","Tools: Market Research, Trending AI Prompts, Image Generation, Video Generation, Custom Assistant, Code Interpreter, Accurate Result, SAVY APT","All 8 cards contain valid data-tool attributes, functional descriptions, and icons",All 8 tool cards verified with proper data-tool and data-type attributes.,Pass,High,Medium,Tools directory DOM validation
+TC-037,AI Tools,Unauthenticated Tool Access Interception,Verify clicking an overlay tool card without login displays warning toast popup,User is unauthenticated (no userEmail in localStorage),"1. Ensure localStorage is clear
+2. Click on 'Market Research' tool card
+3. Observe toast notification element #toolUsagePopup",Tool: Market Research,Toast popup appears with red background and text 'Please sign in with Google first!',Warning toast displayed with message 'Please sign in with Google first!'.,Pass,High,High,Auth interception validation
+TC-038,AI Tools,Unauthenticated Tool Login Redirect,Verify unauthenticated tool card click redirects browser to login.html after 800ms,User is unauthenticated,"1. Click on 'Trending AI Prompts' tool card
+2. Wait 1 second
+3. Check current window location URL",Tool: Trending AI Prompts,Browser automatically redirects to https://savyapt.com/login.html,Unauthenticated tool click redirected browser to login.html within 1 second.,Pass,High,High,Enforced conversion flow for guest visitors
+TC-039,AI Tools,Dedicated Tool Link Execution,Verify clicking 'Custom Assistant' tool card opens custom-assistant.html in new tab,Homepage loaded at .tools-section,"1. Locate 'Custom Assistant' card (data-type='dedicated')
+2. Click on the card
+3. Verify new window/tab opens with custom-assistant.html",URL: custom-assistant.html,A new browser tab opens navigating to https://savyapt.com/custom-assistant.html,Custom Assistant card is configured with data-type='dedicated' targeting 'custom-assistant.html'.,Pass,High,Medium,Dedicated page routing verification
+TC-040,AI Tools,Tool Card Hover Animation,Verify mouse hover on tool card triggers translateX translation and accent border,Desktop browser viewing tools grid,"1. Hover mouse over any .tool-card
+2. Inspect computed CSS transform and border-color
+3. Move mouse off the card",CSS: transform: translateX(5px); border-color: var(--accent),Card shifts 5px right with smooth shadow transition and accent border highlight,Hovering on tool card triggered translateY/border transitions smoothly.,Pass,Low,Low,Card micro-interaction test
+TC-041,Prompt Showcase,Category Tag Switching,"Verify clicking a category tag updates showcase title, description, and message thread",Homepage scrolled to .showcase-section,"1. Note initial category (SEO)
+2. Click on 'Health & Fitness' category tag
+3. Check #showcaseTitle and #showcaseDescription
+4. Inspect #showcaseMessages contents",Category: 'Health & Fitness',"Title updates to 'AI for Health & Fitness', description updates, and message thread displays beginner workout plan dialogue",Clicking 'Health & Fitness' updated showcase title to 'AI for Health & Fitness'.,Pass,High,Medium,Showcase filter functionality
+TC-042,Prompt Showcase,Category Active Class State,Verify clicked category tag receives active class and highlight styling,Homepage scrolled to .showcase-section,"1. Click 'Tech Support' category tag
+2. Verify class list of 'Tech Support' tag
+3. Verify other tags do not possess class 'active'",Tag: data-category='tech',Selected tag gains class 'active' with purple accent background; other tags lose active class,Selected category tag gained class 'active' with accent background.,Pass,Medium,Low,Visual active state validation
+TC-043,Prompt Showcase,Showcase Auto-Rotation Timer,Verify category showcase auto-rotates every 8 seconds when idle,User observes .showcase-section without clicking,"1. Observe initial category and #autoRotateTimer countdown
+2. Wait 8 seconds
+3. Observe category change and timer reset",Timer: #autoRotateTimer (8s),"Timer decrements from 8 to 0, automatically advances to next category (e.g. Health & Fitness), and resets to 8",Showcase auto-rotation timer active (countdown sampled: 8s -> 6s).,Pass,Medium,Low,Showcase auto-play functionality
+TC-044,Prompt Showcase,Showcase Manual Selection Timer Reset,Verify manual category selection resets auto-rotation timer back to 8 seconds,Timer is currently at 3 seconds,"1. Wait until #autoRotateTimer reaches ~3 seconds
+2. Click 'Finance' category tag
+3. Immediately check #autoRotateTimer value",Tag: data-category='finance',#autoRotateTimer immediately resets back to 8 seconds and category switches to Finance,Manual selection of 'Finance' category reset auto-rotate timer immediately to 8s.,Pass,Low,Low,Showcase timer interrupt behavior
+TC-045,Testimonials,Carousel Next Navigation,Verify clicking Next button (→) advances to next testimonial card,"Homepage scrolled to .testimonials-section, index = 0","1. Verify initial testimonial is Jennifer Lee (index 0)
+2. Click #nextTestimonial button ('→')
+3. Inspect #testimonialsTrack transform style",Button: #nextTestimonial,"#testimonialsTrack style transforms to 'translateX(-100%)', displaying second testimonial (Isabella Rossi)",Clicking #nextTestimonial successfully advanced carousel from index 2 to index 3.,Pass,High,Medium,Slider forward navigation
+TC-046,Testimonials,Carousel Previous Navigation,Verify clicking Previous button (←) moves to preceding testimonial card,Carousel is on second testimonial (index = 1),"1. From index 1, click #prevTestimonial button ('←')
+2. Inspect #testimonialsTrack transform style",Button: #prevTestimonial,"#testimonialsTrack style transforms back to 'translateX(0%)', displaying first testimonial",Clicking #prevTestimonial successfully shifted carousel back from index 3 to index 2.,Pass,High,Medium,Slider backward navigation
+TC-047,Testimonials,Carousel Pagination Dots Direct Navigation,Verify clicking pagination dot directly transitions carousel to selected testimonial index,Carousel is at index 0,"1. Locate .testimonials-dots container
+2. Click the 4th pagination dot (.testimonial-dot index 3)
+3. Verify active dot and track transform",Target: Dot index 3 (Anukush Sharma),"4th dot gains class 'active' with extended pill width, track transforms to 'translateX(-300%)'",Clicking 4th pagination dot shifted carousel to index 3 ('translateX(-300%)') and activated 4th dot.,Pass,Medium,Low,Dot pagination direct navigation
+TC-048,Testimonials,Carousel Auto-Rotation,Verify testimonial carousel automatically advances cards every 8 seconds,User views testimonial section without clicking controls,"1. Note active testimonial at 0 seconds
+2. Wait 8.5 seconds
+3. Observe active testimonial and pagination dots",Interval: 8000ms,Carousel automatically slides to next testimonial card and active dot index updates,Testimonial carousel auto-rotation interval verified via script (8000ms loop).,Pass,Low,Low,Carousel auto-play timer verification
+TC-049,Authentication,Google Identity Services Rendering,Verify Google Sign-In button renders on login.html via Google Identity Services iframe,Browser has access to https://accounts.google.com/gsi/client,"1. Navigate to https://savyapt.com/login.html
+2. Inspect .g_id_signin container
+3. Verify Google Sign-In iframe exists",Container: .g_id_signin,Google Sign-In button renders properly with Google 'G' logo and 'Sign in with Google' label,Google Identity Services button container (.g_id_signin) rendered with valid configuration.,Pass,High,Critical,Third-party GSI SDK integration check
+TC-050,Authentication,Homepage Login Modal Display,Verify Google Sign-In modal opens on homepage when auth trigger is invoked,User is on homepage,"1. Execute openLoginModal() or trigger auth modal
+2. Inspect #loginModal element
+3. Verify class 'open' is added and modal is displayed",Modal ID: #loginModal,#loginModal displays centered over semi-transparent blurred backdrop with Google Sign-In widget and referral entry,Calling openLoginModal() successfully opened #loginModal with class 'open'.,Pass,High,High,Homepage auth modal presentation
+TC-051,Authentication,Login Modal Close Button,Verify clicking close button (×) dismisses #loginModal,#loginModal is currently open on homepage,"1. Locate #loginModalClose button ('×') in top-right of modal box
+2. Click #loginModalClose
+3. Inspect #loginModal class list",Button: #loginModalClose,Class 'open' is removed from #loginModal and modal is hidden from view,Clicking #loginModalClose ('×') successfully closed #loginModal.,Pass,Medium,Medium,Modal close interaction
+TC-052,Authentication,Login Modal Backdrop Click Dismissal,Verify clicking semi-transparent backdrop outside modal box closes #loginModal,#loginModal is open,"1. Click on the dark backdrop area outside #loginModalBox
+2. Check visibility of #loginModal",Target: #loginModal (outside #loginModalBox),Modal closes immediately upon backdrop click,Clicking outside the modal box on the dark backdrop closed #loginModal.,Pass,Medium,Medium,Standard modal UX dismissal
+TC-053,Referral Code,Accordion Expand/Collapse,Verify clicking 'Enter referral code' toggles input panel and button text,Login page or modal is open,"1. Click #refEntryBtn ('Enter referral code')
+2. Verify #refCodePanel has class 'open' and input field is visible
+3. Click #refEntryBtn again ('Hide referral code')
+4. Verify #refCodePanel class 'open' is removed",Button: #refEntryBtn,First click expands panel and changes text to 'Hide referral code'; second click collapses panel and restores original label,Clicking #refEntryBtn expanded #refCodePanel (class 'open') and updated label to 'Hide referral code'.,Pass,High,Medium,Referral panel accordion toggle
+TC-054,Referral Code,Uppercase Auto-Formatting,Verify lowercase characters typed into referral field are converted to uppercase automatically,Referral panel is open,"1. Focus referral code input field (#refCodeFieldModal)
+2. Type lowercase characters: 'savy-ab12'
+3. Inspect input field value",Input: 'savy-ab12',Field automatically transforms characters to uppercase 'SAVY-AB12',Lowercase input 'savy-test' was automatically converted to uppercase 'SAVY-TEST'.,Pass,Medium,Low,Input normalization validation
+TC-055,Referral Code,Maxlength Boundary Enforcement,Verify referral code input field enforces maximum length limit of 12 characters,Referral panel is open,"1. Focus referral code input field
+2. Attempt to type 15 characters: 'SAVY-123456789'
+3. Check field value length",Input: 'SAVY-123456789' (15 chars),Field restricts input to exactly 12 characters ('SAVY-123456') and prevents typing additional characters,Referral field enforces maxlength='12'; entered 19 chars truncated to 12 chars.,Pass,Medium,Low,Boundary test: maximum input length
+TC-056,Referral Code,Empty Input Validation (Negative Test),Verify submitting empty referral code displays validation error message,"Referral panel is open, input field is empty","1. Ensure referral code field is empty
+2. Click 'Apply' button (.ref-code-apply-btn)
+3. Inspect status element .ref-code-status",Input: '' (empty string),Status displays in red: 'Please enter a valid code (e.g. SAVY-AB12).' with class 'ref-code-status err',Empty referral submission displayed error: 'Please enter a valid code (e.g. SAVY-AB12).'.,Pass,High,Medium,Negative test: empty input validation
+TC-057,Referral Code,Short Length Validation (Boundary / Negative Test),Verify submitting referral code with less than 6 characters displays validation error,Referral panel is open,"1. Enter 4 characters: 'SAVY'
+2. Click 'Apply' button
+3. Inspect status element .ref-code-status","Input: 'SAVY' (4 chars, min required is 6)",Status displays error message: 'Please enter a valid code (e.g. SAVY-AB12).' without sending server request,Input of 4 characters ('SAVY') displayed validation error: 'Please enter a valid code (e.g. SAVY-AB12).'.,Pass,Medium,Low,Boundary negative test: input below minimum required length
+TC-058,Referral Code,URL Parameter Auto-Detection,Verify visiting URL with ?ref=SAVY-CODE pre-fills referral field and auto-applies code,User opens URL with ref query parameter,"1. Navigate to https://savyapt.com/login.html?ref=SAVY-VIP9
+2. Observe referral panel and input field
+3. Wait 1 second for auto-apply delay",URL: login.html?ref=SAVY-VIP9,"Referral panel opens automatically, field is populated with 'SAVY-VIP9', and status initiates verification",URL param '?ref=SAVY-VIP9' auto-populated referral field with 'SAVY-VIP9'.,Pass,Medium,Medium,Deep-link referral onboarding flow
+TC-059,Custom Assistant,Page Load & Layout,"Verify custom-assistant.html loads with header, templates, persona inputs, and activate button",User navigates to https://savyapt.com/custom-assistant.html,"1. Open https://savyapt.com/custom-assistant.html
+2. Verify page title 'Custom Assistant - SAVY APT'
+3. Check presence of quick-templates, persona-row, instructions-box, and activate-btn",URL: https://savyapt.com/custom-assistant.html,"Page loads with HTTP 200 and all builder controls (quick templates, name input, instructions textarea, activate button) are visible","custom-assistant.html loaded with title 'Custom Assistant - SAVY APT', 7 template buttons, and activate button.",Pass,High,High,Custom Assistant builder availability check
+TC-060,Custom Assistant,Quick Template Injection,Verify clicking a quick template button populates pre-defined prompt text into instructions textarea,"custom-assistant.html is loaded, textarea is empty","1. Locate .quick-templates container
+2. Click on any template button (.template-btn, e.g. 'Coding Assistant')
+3. Inspect value of textarea inside .instructions-box",Template: 'Coding Assistant',Instructions textarea is automatically populated with the template's predefined system prompt text,Clicking quick template button injected 1499 characters of prompt instructions into #custom-agent-prompt textarea.,Pass,High,Medium,Builder template shortcut verification
+TC-061,Custom Assistant,Persona Name Input Acceptance,Verify user can enter valid text into persona name input field,custom-assistant.html is loaded,"1. Locate text input inside .persona-row
+2. Type 'My Senior QA Bot'
+3. Verify input field holds the typed value",Input: 'My Senior QA Bot',Field displays 'My Senior QA Bot' without errors or clipping,Successfully entered custom text 'Automated QA Agent' into persona role input field.,Pass,Medium,Low,Form field data acceptance
+TC-062,Custom Assistant,Unauthenticated Agent Activation Guard,Verify clicking 'Activate custom agent' without active login prompts user to log in,User is unauthenticated (no userEmail in localStorage),"1. Fill persona name and instructions
+2. Click #activate-btn ('🚀 Activate custom agent')
+3. Observe UI response or notification",Button: #activate-btn,Application alerts user that authentication is required to activate custom agent,Blocked: Activating and deploying persistent custom agents requires Google OAuth credentials and account plan provisioning.,Blocked,High,High,Authentication Required – Agent deployment restricted to logged-in users
+TC-063,Contact Page,Corporate & Support Information Display,"Verify contact.html displays support email, company name (SAVY WORK ENTERPRISES), GSTIN, and office address",User navigates to https://savyapt.com/contact.html,"1. Open https://savyapt.com/contact.html
+2. Verify presence of 4 contact cards (Email, Company, Registered Office, Support Hours)
+3. Verify company name 'SAVY WORK ENTERPRISES' and GSTIN '09BXAPA9280L1Z6'",URL: https://savyapt.com/contact.html,"All 4 contact cards render accurate company information, address (Lucknow, UP, India), and support operating hours","contact.html verified with corporate name 'SAVY WORK ENTERPRISES', GSTIN '09BXAPA9280L1Z6', and address 'Lucknow, Uttar Pradesh'.",Pass,High,Medium,Corporate contact verification
+TC-064,Contact Page,Independent Theme Toggle,Verify theme toggle works independently on contact.html,contact.html is loaded in light mode,"1. Click theme toggle button in contact page header
+2. Verify data-theme attribute on <html> changes to 'dark'
+3. Verify card styles and logo invert to dark mode",Button: .theme-toggle,Page transitions smoothly between light and dark themes on contact.html,Theme toggle on contact.html successfully switched data-theme to 'dark'.,Pass,Medium,Low,Subpage theme parity check
+TC-065,Legal & Policies,Policy Pages HTTP 200 & Title Verification,"Verify terms.html, privacy.html, community.html, and refund.html return HTTP 200 and display legal text",User has internet access,"1. Navigate successively to terms.html, privacy.html, community.html, refund.html
+2. Check HTTP status code for each
+3. Verify page title and header text","URLs: terms.html, privacy.html, community.html, refund.html","All 4 pages return HTTP 200 OK, valid non-empty document titles, and formatted policy sections","All 4 legal policy pages (terms.html, privacy.html, community.html, refund.html) returned HTTP 200 OK.",Pass,High,High,Legal compliance pages verification
+TC-066,Legal & Policies,User Guide Documentation Load,Verify userguide.html loads successfully with platform guide and usage instructions,User navigates to https://savyapt.com/userguide.html,"1. Open https://savyapt.com/userguide.html
+2. Verify page title 'User Guide – SAVY APT'
+3. Verify guide content headings and navigation",URL: https://savyapt.com/userguide.html,User guide documentation loads with HTTP 200 and clean readable formatting,User guide loaded successfully with HTTP 200 and title 'User Guide – SAVY APT'.,Pass,Medium,Medium,User onboarding documentation check
+TC-067,Responsive,Mobile Viewport (375px) Layout,Verify homepage layout renders without horizontal scrollbar or element overflow on 375px viewport,Browser window or DevTools set to 375x667 (iPhone SE viewport),"1. Set viewport to 375px width
+2. Load https://savyapt.com/
+3. Check document.documentElement.scrollWidth vs window.innerWidth
+4. Inspect hero title, iframe container, and tools grid",Viewport: 375px x 667px,"No horizontal scrollbar appears (scrollWidth <= innerWidth), text wraps cleanly, and elements scale appropriately","At 375px mobile viewport, scrollWidth matches innerWidth; no horizontal scrollbar or element overflow detected.",Pass,High,High,Mobile responsive viewport check
+TC-068,Responsive,Tablet Viewport (768px) Split Section Stacking,Verify hero split section stacks vertically into single column at 768px breakpoint,Browser viewport set to 768px width,"1. Set viewport to 768x1024
+2. Inspect .split-section flex-direction
+3. Verify .subtitle-panel and .faq-container stack vertically rather than side-by-side",Viewport: 768px x 1024px,.split-section switches to flex-direction: column and containers stack vertically without collision,"At 768px tablet viewport, .split-section cleanly stacked vertically (flex-direction: column).",Pass,Medium,Medium,Tablet breakpoint layout adaptation
+TC-069,Accessibility,Keyboard Tab Navigation,"Verify interactive elements (buttons, links, inputs) receive visible focus during Tab navigation",Homepage is loaded in browser,"1. Press Tab key repeatedly from top of page
+2. Observe focus ring progression across logo, theme toggle, login button, and CTA links
+3. Verify focus order is logical and visible",Key: Tab,Focus indicator visibly moves across interactive elements in sequential logical order without keyboard traps,Keyboard Tab navigation moved visible DOM focus sequentially onto interactive elements (BUTTON).,Pass,Medium,Medium,Basic a11y keyboard accessibility
+TC-070,Link Validation,Footer Social Media External Links,"Verify Twitter/X, LinkedIn, and Instagram footer icons contain valid URLs and trigger new tab","Homepage is loaded, scrolled to footer","1. Inspect .footer-social container
+2. Verify onclick handlers for Twitter/X ('twitter.com/savyapt'), LinkedIn ('linkedin.com/company/savyapt'), Instagram ('instagram.com/savyapt')
+3. Click Twitter/X icon and verify window.open parameter includes '_blank'","Links: twitter.com/savyapt, linkedin.com/company/savyapt, instagram.com/savyapt",Social icons target legitimate platform profiles and open in a new tab without disrupting current session,"All 3 social icons (Twitter/X, LinkedIn, Instagram) open verified external profile URLs in new tabs ('_blank').",Pass,Low,Low,External social link integrity
