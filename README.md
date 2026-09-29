@@ -31,7 +31,7 @@ Developed as a submission for a **Trainee – Software Testing** role, this proj
 ## 📂 Repository Structure
 
 ```text
-Data-Analysis-Project/
+Trainee-Software-Testing/
 ├── WEBSITE_ANALYSIS.md            # Comprehensive architectural & public route breakdown
 ├── README.md                      # Project master documentation & portfolio overview
 ├── .gitignore                     # Git ignore rules for node_modules, reports & temp files
@@ -162,8 +162,8 @@ For hiring managers, QA leads, and evaluators reviewing this repository, the art
 ### 2. Setup
 ```bash
 # Clone the repository
-git clone https://github.com/ayushgupta-120/Data-Analysis-Project.git
-cd Data-Analysis-Project/automation
+git clone https://github.com/ayushgupta-120/Trainee-Software-Testing.git
+cd Trainee-Software-Testing/automation
 
 # Install Playwright dependencies
 npm install
